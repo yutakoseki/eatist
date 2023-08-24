@@ -51,12 +51,23 @@ Ok to proceed? (y) y
 ```npm i express nodemon```
 
 ## supabase
+サイト：https://supabase.com/dashboard/project/blputnmvdjzlofwwbuhr/editor/28573
 ID : entryofyuta@gmail.com
 Pass: いつもの
 DBname:sns-udemy
 DBpass :sns-Udemy0823
 
 ## prismaのインストール
+document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-typescript-postgresql
 ```npm i prisma```
 ### 初期化
 ```npx prisma init```
+### マイグレーション
+```npx prisma migrate dev --name init```
+※.envファイルにURL設定しないとエラーになる
+### prismaクライアントのインストール
+```npm i @prisma/client```
+
+## bcript(パスワードのハッシュ化)
+URL:https://www.npmjs.com/package/bcrypt
+```npm i bcrypt```
