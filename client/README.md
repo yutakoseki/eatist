@@ -88,3 +88,6 @@ URL:https://jwt.io/
 
 ## CORSインストール
 ```npm i cors```
+
+## supabaseをいちいち開きたくない
+```npx prisma studio```
