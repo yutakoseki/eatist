@@ -96,3 +96,10 @@ URL:https://jwt.io/
 
 ## Identicon
 ```npm install identicon.js --save```
+
+## NextUI
+```npm i @nextui-org/react framer-motion```
+### ダークモードtheme
+```npm i next-themes```
+### アイコン
+```npm install @heroicons/react```

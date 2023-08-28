@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navber from "./components/Navber";
 import { AuthProvider } from "./context/auth";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="ja">
             <AuthProvider>
                 <body className={inter.className}>
+                <Providers>
                     <Navber />
                     {children}
+                </Providers>
                 </body>
             </AuthProvider>
         </html>
