@@ -7,7 +7,7 @@ const usersRoute = require("./routers/users");
 const cors = require("cors");
 
 // PORTは適当
-const PORT = 5050;
+const PORT = 5055;
 
 // TODO テスト用
 // app.get("/", (req, res) => {
