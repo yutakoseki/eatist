@@ -68,6 +68,8 @@ document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scra
 ### マイグレーション
 ```npx prisma migrate dev --name init```
 ※.envファイルにURL設定しないとエラーになる
+### プリズマ更新
+```npx prisma migrate dev```
 ### prismaクライアントのインストール
 ```npm i @prisma/client```
 
@@ -91,3 +93,6 @@ URL:https://jwt.io/
 
 ## supabaseをいちいち開きたくない
 ```npx prisma studio```
+
+## Identicon
+```npm install identicon.js --save```

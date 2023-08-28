@@ -5,7 +5,6 @@ import { useAuth } from "../context/auth";
 
 const Navber = () => {
     const { user, logout } = useAuth();
-    console.log(user);
     return (
         <header className="bg-gray-700 p-4 text-white">
             <div className="container mx-auto flex justify-between items-center">
@@ -21,7 +20,7 @@ const Navber = () => {
                                 <Link href={`/profile${user.id}`} className="bg-white text-gray-900 py-2 px-3 rounded-lg font-medium">
                                     プロフィール
                                 </Link>
-                                <button className="bg-white text-gray-900 py-2 px-3 rounded-lg font-medium">
+                                <button onClick={logout} className="bg-white text-gray-900 py-2 px-3 rounded-lg font-medium">
                                     ログアウト
                                 </button>
                             </>

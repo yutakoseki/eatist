@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // 初回にローカルstorageからtokenを取得
     useEffect(() => {
         const token = localStorage.getItem("auth_token");
-        debugger;
         if (token) {
             apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
             apiClient
@@ -41,12 +40,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 .catch((err) => {
                     console.log(err);
                 });
-            }
-            console.log(user);
+        }
     }, []);
 
     const login = async (token: string) => {
         localStorage.setItem("auth_token", token);
+        apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
         try {
             apiClient
                 .get("/users/find")
@@ -63,6 +62,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const logout = () => {
         localStorage.removeItem("auth_token");
+        delete apiClient.defaults.headers["Authorization"];
+        setUser(null);
     };
 
     const value = {
