@@ -57,6 +57,9 @@ Pass: いつもの
 DBname:sns-udemy
 DBpass :sns-Udemy0823
 
+.env
+DATABASE_PG_URL="postgresql://postgres:sns-Udemy0823@db.blputnmvdjzlofwwbuhr.supabase.co:5432/postgres"
+
 ## prismaのインストール
 document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-typescript-postgresql
 ```npm i prisma```
@@ -65,9 +68,31 @@ document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scra
 ### マイグレーション
 ```npx prisma migrate dev --name init```
 ※.envファイルにURL設定しないとエラーになる
+### プリズマ更新
+```npx prisma migrate dev```
 ### prismaクライアントのインストール
 ```npm i @prisma/client```
 
 ## bcript(パスワードのハッシュ化)
 URL:https://www.npmjs.com/package/bcrypt
 ```npm i bcrypt```
+
+## JWTのインストール
+URL:https://jwt.io/
+```npm i jsonwebtoken```
+
+## .envのインストール
+```npm i dotenv```
+
+## axiosのインストール
+```npm i axios```
+※apiClient.tsにbaseURLをport込みで書いているのでバックエンドのport変わる場合は変更する
+
+## CORSインストール
+```npm i cors```
+
+## supabaseをいちいち開きたくない
+```npx prisma studio```
+
+## Identicon
+```npm install identicon.js --save```
