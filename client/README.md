@@ -52,20 +52,20 @@ Ok to proceed? (y) y
 
 ## supabase
 サイト：https://supabase.com/dashboard/project/blputnmvdjzlofwwbuhr/editor/28573
-ID : entryofyuta@gmail.com
+ID : developsolt@gmail.com
 Pass: いつもの
-DBname:sns-udemy
-DBpass :sns-Udemy0823
+DBname: vocallery
+DBpass: vocallery-enzi
 
 .env
-DATABASE_PG_URL="postgresql://postgres:sns-Udemy0823@db.blputnmvdjzlofwwbuhr.supabase.co:5432/postgres"
+DATABASE_URL="postgresql://postgres:vocallery-enzi@db.wfijvtyuetfeycepidnc.supabase.co:5432/postgres"
 
 ## prismaのインストール
 document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-typescript-postgresql
 ```npm i prisma```
 ### 初期化
 ```npx prisma init```
-### マイグレーション
+### 初期マイグレーション
 ```npx prisma migrate dev --name init```
 ※.envファイルにURL設定しないとエラーになる
 ### プリズマ更新
