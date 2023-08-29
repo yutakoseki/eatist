@@ -103,3 +103,6 @@ URL:https://jwt.io/
 ```npm i next-themes```
 ### アイコン
 ```npm install @heroicons/react```
+
+## スライドショー
+```npm install swiper@latest```
