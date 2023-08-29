@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const generateIdenticon = require("../utils/generateIdenticon");
 
 // Prisma初期化
 const prisma = new PrismaClient({
@@ -16,6 +17,8 @@ const prisma = new PrismaClient({
 // 新規ユーザー登録API
 router.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
+    // デフォルト画像
+    const defaultIconImage = generateIdenticon(email);
 
     // パスワードのハッシュ化
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -25,12 +28,15 @@ router.post("/register", async (req, res) => {
             username,
             email,
             password: hashedPassword,
-            profile:{
-                create:{
+            profile: {
+                create: {
                     bio: "はじめまして",
-                    profileImageUrl:"sample Image",
-                }
-            }
+                    profileImageUrl: defaultIconImage,
+                },
+            },
+        },
+        include: {
+            profile: true,
         },
     });
     return res.json({ user });

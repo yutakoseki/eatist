@@ -17,7 +17,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        debugger;
+
         // ここで新規登録を行うAPIを叩く
         try {
             await apiClient.post("/auth/register", {
