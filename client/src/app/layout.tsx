@@ -16,11 +16,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="ja">
             <AuthProvider>
-                <body className={inter.className}>
-                <Providers>
-                    <Navber />
-                    {children}
-                </Providers>
+                <body className="h-screen w-screen">
+                    <div className="">
+                        <Providers>
+                            <Navber />
+                            {children}
+                        </Providers>
+                    </div>
                 </body>
             </AuthProvider>
         </html>

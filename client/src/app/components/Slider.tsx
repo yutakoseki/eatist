@@ -1,38 +1,46 @@
-"use client"
-
+import React from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper/core"; // "swiper/core" に変更
+import "swiper/swiper-bundle.css"; // CSS ファイルのインポート
+import slider from "./slider.module.scss";
 
-// カルーセルにする画像のソースをリストにします
+// SwiperCore で必要なモジュールをインストール
+SwiperCore.use([Navigation, Pagination, Autoplay]);
+
 const images = ["/dummy/1.jpg", "/dummy/2.jpg", "/dummy/3.jpg"];
 
 const Slider = () => {
     return (
-        <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            slidesPerView={1} //一度に表示するスライドの数
-            pagination={{
-                clickable: true,
-            }} //何枚目のスライドかを示すアイコン、スライドの下の方にある
-            navigation //スライドを前後させるためのボタン、スライドの左右にある
-            loop={true}
-            autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-            }}
-        >
-            {images.map((src: string, index: number) => {
-                return (
-                    <SwiperSlide key={`${index}`}>
-                        <Image src={src} layout="responsive" width={640} height={400} alt="test_image" />
-                    </SwiperSlide>
-                );
-            })}
-        </Swiper>
+        <div className="h-screen">
+            <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                slidesPerView={1}
+                spaceBetween={10} // 前後のスライドとのスペース
+                pagination={{
+                    el: null,
+                    type: 'bullets',
+                    clickable: true,
+                }}
+                loop={true}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: true,
+                }}
+            >
+                {images.map((src: string, index: number) => {
+                    return (
+                        <SwiperSlide key={`${index}`}>
+                            <div className="w-full flex justify-center items-center">
+                                <div className={slider.container}>
+                                    <Image className="overflow-hidden" layout="fixed" src={src} width={500} height={300} alt="image" />
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
+            </Swiper>
+        </div>
     );
 };
 
