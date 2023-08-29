@@ -1,3 +1,5 @@
+"use client"
+
 import Slider from "../components/Slider";
 
 type Item = {
