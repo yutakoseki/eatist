@@ -1,13 +1,14 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper/core"; // "swiper/core" に変更
-import "swiper/swiper-bundle.css"; // CSS ファイルのインポート
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import slider from "./slider.module.scss";
 
-// SwiperCore で必要なモジュールをインストール
-SwiperCore.use([Navigation, Pagination, Autoplay]);
-
+// カルーセルにする画像のソースをリストにします
 const images = ["/dummy/1.jpg", "/dummy/2.jpg", "/dummy/3.jpg"];
 
 const Slider = () => {
@@ -15,13 +16,12 @@ const Slider = () => {
         <div className="h-screen">
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                slidesPerView={1}
-                spaceBetween={10} // 前後のスライドとのスペース
+                slidesPerView={1} //一度に表示するスライドの数
                 pagination={{
-                    el: null,
-                    type: 'bullets',
+                    el: null, //ページネーション要素
+                    type: 'bullets', //ページネーション種類
                     clickable: true,
-                }}
+                }} //何枚目のスライドかを示すアイコン、スライドの下の方にある
                 loop={true}
                 autoplay={{
                     delay: 2500,
