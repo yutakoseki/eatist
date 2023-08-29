@@ -1,6 +1,5 @@
 "use client";
 import apiClient from "@/lib/apiClient";
-import Head from "next/head";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
@@ -15,9 +14,7 @@ const SignUp = () => {
     const [password, setPassword] = useState<string>("");
     const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
+    const handleSubmit = async () => {
         // ここで新規登録を行うAPIを叩く
         try {
             await apiClient.post("/auth/register", {
@@ -41,13 +38,13 @@ const SignUp = () => {
                 <Divider />
                 <CardBody>
                     <div className="flex flex-col gap-3">
-                        <Input type="username" label="UserName" size="sm" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
+                        <Input type="username" label="Username" size="sm" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)} />
                         <Input type="email" label="Email" size="sm" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                         <Input type="password" label="Password" size="sm" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
                     </div>
                 </CardBody>
                 <CardFooter>
-                    <Button color="primary" onClick={handleSubmit}>
+                    <Button color="primary" className="w-full" onClick={handleSubmit}>
                         SignUp
                     </Button>
                 </CardFooter>

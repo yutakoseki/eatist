@@ -18,8 +18,7 @@ const Login = () => {
     console.log(email);
     console.log(password);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
 
         // ここで新規登録を行うAPIを叩く
         try {
@@ -39,7 +38,7 @@ const Login = () => {
             <ThemeSwitcher />
             <Card className="max-w-sm mx-auto">
                 <CardHeader className="flex items-center justify-center">
-                    <div className="text-lg font-medium">Sign up</div>
+                    <div className="text-lg font-medium">Log in</div>
                 </CardHeader>
                 <Divider />
                 <CardBody>
@@ -49,7 +48,7 @@ const Login = () => {
                     </div>
                 </CardBody>
                 <CardFooter>
-                    <Button color="primary" onClick={handleSubmit}>
+                    <Button color="primary" className="w-full" onClick={handleSubmit}>
                         login
                     </Button>
                 </CardFooter>
