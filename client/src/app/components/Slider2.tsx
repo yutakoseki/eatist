@@ -50,7 +50,7 @@ export default function Slider2() {
                 className="mySwiper"
             >
                 <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                    <img src="https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/images/userid/img_1.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img src="https://swiperjs.com/demos/images/nature-2.jpg" />

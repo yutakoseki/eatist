@@ -15,7 +15,7 @@ const FileUpload = () => {
     const token = "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";
     const owner = "yutakoseki";
     const repo = "vocallery-storage";
-    const filePath = "images/userid/img_1.jpg";
+    const filePath = "images/test/img_1.jpg";
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
 
     // 選択したファイルをbase64化させる
@@ -40,7 +40,6 @@ const FileUpload = () => {
     // ファイルアップロード
     const handleUpload = async () => {
         try {
-            const apiUrl = url; // 実際のGitHub APIエンドポイント
 
             if (!selectedFile) {
                 console.error("ファイルが選択されていません。");
@@ -49,24 +48,33 @@ const FileUpload = () => {
             const content = await fileToBase64(selectedFile);
 
             // formで送信する内容を作成
-            const formData = new FormData();
-            formData.append("branch", "master");
-            formData.append("message", "upload image");
-            formData.append("content", content);
+            // const formData = new FormData();
+            // formData.append("branch", "master");
+            // formData.append("message", "upload image");
+            // formData.append("content", content);
+
+            const data = JSON.stringify({
+                branch: 'master',
+                message: 'upload image',
+                content: `${content}`
+              });
 
             // 適切なヘッダーを設定してリクエストを送信
-            const headers = {
-                Authorization: `Bearer ${token}`,
+            const p = {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: data,
             };
-
-            const newPost = await apiClient.post("/image/image", {
-                url: apiUrl,
-                method: "PUT", // GitHub APIの適切なHTTPメソッド
-                data: formData,
-                headers: headers,
-            });
-
-            console.log("Upload succeeded:", newPost);
+            const res = await fetch(url, p);
+            if (res.ok) {
+                const resJson = await res.json();
+                console.log(`Upload succeeded.`, resJson.content.download_url);
+            } else {
+                console.log(`Upload failed.`, res.status);
+            }
         } catch (err) {
             console.log("Error uploading:", err);
         }
