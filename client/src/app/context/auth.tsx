@@ -24,10 +24,10 @@ export const useAuth = () => {
     return useContext(AuthContext);
 };
 
-// ローカルストレージにtokenをセット
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<null | { id: number; username: string; email: string }>(null);
-    // 初回にローカルstorageからtokenを取得
+
+    // 初回にローカルstorageからtokenを取得し、ユーザーデータに変換
     useEffect(() => {
         const token = localStorage.getItem("auth_token");
         if (token) {
@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setUser(null);
     };
 
+    // これらのvalueを使いまわせるようにProviderに渡す
     const value = {
         user,
         login,
