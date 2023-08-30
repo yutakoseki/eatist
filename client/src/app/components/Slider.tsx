@@ -9,23 +9,27 @@ import "swiper/css/pagination";
 import slider from "./slider.module.scss";
 
 // カルーセルにする画像のソースをリストにします
-const images = ["/dummy/1.jpg", "/dummy/2.jpg", "/dummy/3.jpg"];
+const images = ["/dummy/1.jpg", "/dummy/2.jpg", "/dummy/3.jpg", "/dummy/4.jpg", "/dummy/5.jpg", "/dummy/6.jpg", "/dummy/7.jpg", "/dummy/8.jpg", "/dummy/9.jpg", "/dummy/10.jpg"];
 
 const Slider = () => {
     return (
         <div className="h-screen">
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                slidesPerView={1} //一度に表示するスライドの数
+                spaceBetween={-100}
                 pagination={{
                     el: null, //ページネーション要素
-                    type: 'bullets', //ページネーション種類
+                    type: "bullets", //ページネーション種類
                     clickable: true,
                 }} //何枚目のスライドかを示すアイコン、スライドの下の方にある
                 loop={true}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: true,
+                }}
+                breakpoints={{
+                    601: { slidesPerView: 1 },
+                    1025: { slidesPerView: 3 },
                 }}
             >
                 {images.map((src: string, index: number) => {

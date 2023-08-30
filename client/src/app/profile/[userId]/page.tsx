@@ -1,6 +1,33 @@
+import apiClient from "@/lib/apiClient";
+import { Profile } from "@/types";
+import { GetServerSideProps } from "next";
 import React from "react";
 
-const UserProfile = () => {
+type Props = {
+    profile: Profile;
+};
+
+// 頻繁に更新される可能性があるのでSSRで実装
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+    const { userId } = context.query;
+
+    try {
+        const profileResponse = await apiClient.get(`/users/profile/${userId}`);
+        return {
+            props: {
+                profile: profileResponse.data,
+            },
+        };
+    } catch (err) {
+        console.log(err);
+        return {
+            notFound: true,
+        };
+    }
+};
+
+const UserProfile = ({ profile }: Props
+    ) => {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="w-full max-w-xl mx-auto">

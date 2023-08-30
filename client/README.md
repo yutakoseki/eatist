@@ -104,5 +104,11 @@ URL:https://jwt.io/
 ### アイコン
 ```npm install @heroicons/react```
 
+## SASS
+```npm i sass```
+
 ## スライドショー
 ```npm install swiper@latest```
+
+## ionicons
+```npm i ionicons```
