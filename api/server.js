@@ -4,6 +4,7 @@ const app = express();
 const authRoute = require("./routers/auth");
 const postsRoute = require("./routers/posts");
 const usersRoute = require("./routers/users");
+const imageRoute = require("./routers/image");
 const cors = require("cors");
 
 // PORTは適当
@@ -21,5 +22,6 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postsRoute);
 app.use("/api/users", usersRoute);
+app.use("/api/image", imageRoute);
 
 app.listen(PORT, () => console.log(`sercer is running on Port ${PORT}`));
