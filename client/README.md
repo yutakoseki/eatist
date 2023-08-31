@@ -72,6 +72,8 @@ document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scra
 ```npx prisma migrate dev```
 ### prismaクライアントのインストール
 ```npm i @prisma/client```
+## supabaseをいちいち開きたくない
+```npx prisma studio```
 
 ## bcript(パスワードのハッシュ化)
 URL:https://www.npmjs.com/package/bcrypt
@@ -90,9 +92,6 @@ URL:https://jwt.io/
 
 ## CORSインストール
 ```npm i cors```
-
-## supabaseをいちいち開きたくない
-```npx prisma studio```
 
 ## Identicon
 ```npm install identicon.js --save```

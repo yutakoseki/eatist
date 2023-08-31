@@ -17,6 +17,7 @@ model User {
   password String
   posts   Post[]
   profile Profile?
+  gallery Gallery[]
 }
 
 model Post {
@@ -33,4 +34,14 @@ model Profile{
   profileImageUrl String?
   userId Int @unique
   user User @relation(fields:[userId], references: [id])
+}
+
+model Gallery{
+  id Int @id @default(autoincrement())
+  imagename String
+  uploadimagename String
+  filepath String
+  createdAt DateTime @default(now())
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
 }

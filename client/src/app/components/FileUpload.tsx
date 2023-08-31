@@ -11,6 +11,7 @@ interface props {
 const FileUpload = ({ props }: props) => {
     const userid = props.editId;
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [extension, setExtention] = useState<string>("");
 
     // ファイルの選択
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +20,7 @@ const FileUpload = ({ props }: props) => {
             const allowedExtensions = ["png", "jpeg", "jpg"];
             const fileExtension = selected.name.split(".").pop()?.toLowerCase();
             if (fileExtension && allowedExtensions.includes(fileExtension)) {
+                setExtention(fileExtension);
                 setSelectedFile(selected);
             } else {
                 alert("画像ファイル（png, jpeg, jpg）を選択してください。");
@@ -55,15 +57,21 @@ const FileUpload = ({ props }: props) => {
                 return;
             }
 
-            let now = new Date();
-            let formattedDate = formatDate(now);
+            // TODO storage用github情報 秘匿情報としたい
             const token = "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";
             const owner = "yutakoseki";
             const repo = "vocallery-storage";
-            const filePath = `images/${userid}/${formattedDate}.jpg`;
-            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
-            const content = await fileToBase64(selectedFile);
 
+            let now = new Date();
+            let formattedDate = formatDate(now);
+            const uploadImageName = formattedDate + "." + extension;
+            const imageName = selectedFile.name;
+            const filePath = `images/${userid}/${uploadImageName}`;
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`; // 投稿用のURL
+            const urlPath = `https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/${filePath}?`; // 表示用のURL
+
+            // 画像データ
+            const content = await fileToBase64(selectedFile);
             const data = JSON.stringify({
                 branch: "master",
                 message: "upload image",
@@ -88,7 +96,16 @@ const FileUpload = ({ props }: props) => {
             }
 
             // アップロードに成功した場合はDBへパスを登録
-            
+            try {
+                await apiClient.post("/gallery/register", {
+                    imageName,
+                    uploadImageName,
+                    urlPath,
+                    userid,
+                });
+            } catch (err) {
+                console.log("db register error", err);
+            }
         } catch (err) {
             console.log("Error uploading:", err);
         }
