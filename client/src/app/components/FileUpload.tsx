@@ -15,7 +15,15 @@ const FileUpload = ({ props }: props) => {
     // ファイルの選択
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            setSelectedFile(event.target.files[0]);
+            const selected = event.target.files[0];
+            const allowedExtensions = ["png", "jpeg", "jpg"];
+            const fileExtension = selected.name.split(".").pop()?.toLowerCase();
+            if (fileExtension && allowedExtensions.includes(fileExtension)) {
+                setSelectedFile(selected);
+            } else {
+                alert("画像ファイル（png, jpeg, jpg）を選択してください。");
+                console.error("画像ファイル（png, jpeg, jpg）を選択してください。");
+            }
         }
     };
 
@@ -42,6 +50,7 @@ const FileUpload = ({ props }: props) => {
     const handleUpload = async () => {
         try {
             if (!selectedFile) {
+                alert("画像ファイルを選択してください。");
                 console.error("ファイルが選択されていません。");
                 return;
             }
@@ -77,6 +86,9 @@ const FileUpload = ({ props }: props) => {
             } else {
                 console.log(`Upload failed.`, res.status);
             }
+
+            // アップロードに成功した場合はDBへパスを登録
+            
         } catch (err) {
             console.log("Error uploading:", err);
         }
