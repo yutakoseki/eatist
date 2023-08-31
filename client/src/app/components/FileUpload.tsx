@@ -2,7 +2,14 @@
 import apiClient from "@/lib/apiClient";
 import React, { useState } from "react";
 
-const FileUpload = () => {
+interface props {
+    props: {
+        editId: number;
+    };
+}
+
+const FileUpload = ({ props }: props) => {
+    const userid = props.editId;
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     // ファイルの選択
@@ -11,12 +18,6 @@ const FileUpload = () => {
             setSelectedFile(event.target.files[0]);
         }
     };
-
-    const token = "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";
-    const owner = "yutakoseki";
-    const repo = "vocallery-storage";
-    const filePath = "images/test/img_1.jpg";
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
 
     // 選択したファイルをbase64化させる
     const fileToBase64 = async (file: File): Promise<string> => {
@@ -40,24 +41,25 @@ const FileUpload = () => {
     // ファイルアップロード
     const handleUpload = async () => {
         try {
-
             if (!selectedFile) {
                 console.error("ファイルが選択されていません。");
                 return;
             }
+
+            let now = new Date();
+            let formattedDate = formatDate(now);
+            const token = "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";
+            const owner = "yutakoseki";
+            const repo = "vocallery-storage";
+            const filePath = `images/${userid}/${formattedDate}.jpg`;
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
             const content = await fileToBase64(selectedFile);
 
-            // formで送信する内容を作成
-            // const formData = new FormData();
-            // formData.append("branch", "master");
-            // formData.append("message", "upload image");
-            // formData.append("content", content);
-
             const data = JSON.stringify({
-                branch: 'master',
-                message: 'upload image',
-                content: `${content}`
-              });
+                branch: "master",
+                message: "upload image",
+                content: `${content}`,
+            });
 
             // 適切なヘッダーを設定してリクエストを送信
             const p = {
@@ -90,5 +92,17 @@ const FileUpload = () => {
         </div>
     );
 };
+
+function formatDate(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hour = String(date.getHours()).padStart(2, "0");
+    const minute = String(date.getMinutes()).padStart(2, "0");
+    const second = String(date.getSeconds()).padStart(2, "0");
+
+    const formattedDate = year + month + day + hour + minute + second;
+    return formattedDate;
+}
 
 export default FileUpload;

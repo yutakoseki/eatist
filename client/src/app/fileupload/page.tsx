@@ -1,12 +1,13 @@
-import React from 'react'
-import FileUpload from '../components/FileUpload'
+"use client";
+import React from "react";
+import FileUpload from "../components/FileUpload";
 
 const Upload = () => {
-  return (
-    <>
-    <FileUpload/>
-    </>
-  )
-}
+    return (
+        <>
+            <FileUpload />
+        </>
+    );
+};
 
-export default Upload
+export default Upload;
