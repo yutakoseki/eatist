@@ -16,9 +16,16 @@ const FileUpload = ({ props }: props) => {
     // ファイルの選択
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
+            debugger;
             const selected = event.target.files[0];
             const allowedExtensions = ["png", "jpeg", "jpg"];
             const fileExtension = selected.name.split(".").pop()?.toLowerCase();
+            // 1Mb未満
+            
+            if(selected.size > 1000000) {
+                alert("1MB未満のファイルを選択してください");
+                return;
+            }
             if (fileExtension && allowedExtensions.includes(fileExtension)) {
                 setExtention(fileExtension);
                 setSelectedFile(selected);
