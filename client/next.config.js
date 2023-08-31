@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    images: {
+        domains: ["raw.githubusercontent.com", "swiperjs.com"], // 必要に応じて他のドメインも追加
+    },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
