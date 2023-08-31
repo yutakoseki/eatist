@@ -7,6 +7,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import slider from "./slider.module.scss";
+import { useEffect, useState } from "react";
+import apiClient from "@/lib/apiClient";
 
 // カルーセルにする画像のソースをリストにします
 const images = ["/dummy/1.jpg", "/dummy/2.jpg", "/dummy/3.jpg", "/dummy/4.jpg", "/dummy/5.jpg", "/dummy/6.jpg", "/dummy/7.jpg", "/dummy/8.jpg", "/dummy/9.jpg", "/dummy/10.jpg"];

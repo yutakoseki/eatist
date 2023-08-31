@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,11 +11,25 @@ import "./styles.css";
 
 // import required modules
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
+import apiClient from "@/lib/apiClient";
 
 // カルーセルにする画像のソースをリストにします
 const images = ["/dummy/1.jpg", "/dummy/2.jpg", "/dummy/3.jpg", "/dummy/4.jpg", "/dummy/5.jpg", "/dummy/6.jpg", "/dummy/7.jpg", "/dummy/8.jpg", "/dummy/9.jpg", "/dummy/10.jpg"];
 
 export default function Slider2() {
+    const [gallery, setGallery] = useState([]);
+    // 初回に画像を読み込み
+    useEffect(() => {
+        const fetchLatestPosts = async () => {
+            try {
+                const response = await apiClient.get("/gallery/get_latest_image");
+                setGallery(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchLatestPosts();
+    }, []);
     return (
         <>
             <Swiper
@@ -49,7 +63,7 @@ export default function Slider2() {
                 modules={[EffectCoverflow, Pagination, Autoplay]}
                 className="mySwiper"
             >
-                <SwiperSlide>
+                {/* <SwiperSlide>
                     <img src="https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/images/userid/img_1.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -75,7 +89,19 @@ export default function Slider2() {
                 </SwiperSlide>
                 <SwiperSlide>
                     <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </SwiperSlide>
+                </SwiperSlide> */}
+
+{images.map((src: string, index: number) => {
+                    return (
+                        <SwiperSlide key={`${index}`}>
+                            <div className="w-full flex justify-center items-center">
+                                <div className={slider.container}>
+                                    <Image className="overflow-hidden" layout="fixed" src={src} width={500} height={300} alt="image" />
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
             </Swiper>
         </>
     );

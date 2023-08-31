@@ -34,4 +34,23 @@ router.post("/register", isAuthenticated, async (req, res) => {
     }
 });
 
+// 画像取得用API
+router.get("/get_latest_image", async (req, res) => {
+    try {
+        const latestImage = await prisma.gallery.findMany({
+            where: {
+                authorId: req.userid,
+            },
+            take: 10,
+            orderBy: { createdAt: "desc" },
+            include: {
+                author: true,
+            },
+        });
+        return res.json(latestImage);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "サーバーエラーです・" });
+    }
+});
 module.exports = router;
