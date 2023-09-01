@@ -15,11 +15,19 @@ import apiClient from "@/lib/apiClient";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import Image from "next/image";
 
+interface Props {
+    props: {
+        userId: number;
+    };
+}
+
 interface Gallery {
     id: number;
     content: string;
     createdAt: string;
     authorId: number;
+    filepath: string;
+    imagename: string;
     author: {
         profileImageUrl: string | undefined;
         id: number;
@@ -29,19 +37,18 @@ interface Gallery {
     };
 }
 
-// カルーセルにする画像のソースをリストにします
-// const images = ["https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/images/userid/img_1.jpg", "https://swiperjs.com/demos/images/nature-2.jpg", "https://swiperjs.com/demos/images/nature-3.jpg", "https://swiperjs.com/demos/images/nature-4.jpg", "https://swiperjs.com/demos/images/nature-5.jpg", "https://swiperjs.com/demos/images/nature-6.jpg", "https://swiperjs.com/demos/images/nature-7.jpg", "https://swiperjs.com/demos/images/nature-8.jpg", "https://swiperjs.com/demos/images/nature-9.jpg", "https://swiperjs.com/demos/images/nature-10.jpg"];
-
 const wallPaper = "https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/wallpaper/default/philippe-ramakers-GEc9p9avZP8-unsplash.jpg";
 
-export default function Slider2() {
+export default function Slider2({ props }: Props) {
     const [gallery, setGallery] = useState([]);
+    const userid = props.userId;
+
     // 初回に画像を読み込み
     useEffect(() => {
         const fetchLatestPosts = async () => {
             try {
-                const response = await apiClient.get("/gallery/get_latest_image",{
-                    authorId: 12,
+                const response = await apiClient.get("/gallery/get_latest_image", {
+                    authorId: userid,
                 });
                 setGallery(response.data);
             } catch (err) {
@@ -51,7 +58,6 @@ export default function Slider2() {
         fetchLatestPosts();
     }, []);
 
-    console.log(gallery);
     return (
         <>
             <Swiper
@@ -90,7 +96,7 @@ export default function Slider2() {
                     return (
                         <SwiperSlide key={`${index}`}>
                             <div className="w-10/12 mx-auto">
-                                <Image className="p-4 border-solid border-8 border-x-slate-500/50 border-y-slate-800/50 shadow-lg shadow-slate-500/40 bg-slate-50/75 max-h-96" src={item.filepath} width={600} height={400} alt="gallery image"/>
+                                <Image className="p-4 border-solid border-8 border-x-slate-500/50 border-y-slate-800/50 shadow-lg shadow-slate-500/40 bg-slate-50/75 max-h-96" src={item.filepath} width={600} height={400} alt="gallery image" />
                                 <div className="mt-4 flex justify-center items-center">{item.imagename}</div>
                             </div>
                         </SwiperSlide>
@@ -102,7 +108,7 @@ export default function Slider2() {
             </Swiper>
 
             <div className={`fixed top-0 left-0 w-full h-screen z-[-1]`}>
-                <Image className="blur-sm" src={wallPaper} layout={`fill`} objectFit={`cover`} />
+                <Image className="blur-sm" src={wallPaper} layout={`fill`} objectFit={`cover`} alt="background image" />
             </div>
         </>
     );
