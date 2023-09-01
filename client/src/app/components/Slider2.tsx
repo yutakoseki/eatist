@@ -15,8 +15,22 @@ import apiClient from "@/lib/apiClient";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import Image from "next/image";
 
+interface Gallery {
+    id: number;
+    content: string;
+    createdAt: string;
+    authorId: number;
+    author: {
+        profileImageUrl: string | undefined;
+        id: number;
+        username: string;
+        email: string;
+        password: string;
+    };
+}
+
 // カルーセルにする画像のソースをリストにします
-const images = ["https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/images/userid/img_1.jpg", "https://swiperjs.com/demos/images/nature-2.jpg", "https://swiperjs.com/demos/images/nature-3.jpg", "https://swiperjs.com/demos/images/nature-4.jpg", "https://swiperjs.com/demos/images/nature-5.jpg", "https://swiperjs.com/demos/images/nature-6.jpg", "https://swiperjs.com/demos/images/nature-7.jpg", "https://swiperjs.com/demos/images/nature-8.jpg", "https://swiperjs.com/demos/images/nature-9.jpg", "https://swiperjs.com/demos/images/nature-10.jpg"];
+// const images = ["https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/images/userid/img_1.jpg", "https://swiperjs.com/demos/images/nature-2.jpg", "https://swiperjs.com/demos/images/nature-3.jpg", "https://swiperjs.com/demos/images/nature-4.jpg", "https://swiperjs.com/demos/images/nature-5.jpg", "https://swiperjs.com/demos/images/nature-6.jpg", "https://swiperjs.com/demos/images/nature-7.jpg", "https://swiperjs.com/demos/images/nature-8.jpg", "https://swiperjs.com/demos/images/nature-9.jpg", "https://swiperjs.com/demos/images/nature-10.jpg"];
 
 const wallPaper = "https://raw.githubusercontent.com/yutakoseki/vocallery-storage/master/wallpaper/default/philippe-ramakers-GEc9p9avZP8-unsplash.jpg";
 
@@ -26,7 +40,9 @@ export default function Slider2() {
     useEffect(() => {
         const fetchLatestPosts = async () => {
             try {
-                const response = await apiClient.get("/gallery/get_latest_image");
+                const response = await apiClient.get("/gallery/get_latest_image",{
+                    authorId: 12,
+                });
                 setGallery(response.data);
             } catch (err) {
                 console.log(err);
@@ -34,6 +50,8 @@ export default function Slider2() {
         };
         fetchLatestPosts();
     }, []);
+
+    console.log(gallery);
     return (
         <>
             <Swiper
@@ -68,12 +86,12 @@ export default function Slider2() {
                 modules={[EffectCoverflow, Pagination, Autoplay]}
                 className="mySwiper"
             >
-                {images.map((src: string, index: number) => {
+                {gallery.map((item: Gallery, index: number) => {
                     return (
                         <SwiperSlide key={`${index}`}>
                             <div className="w-10/12 mx-auto">
-                                <Image className="p-4 border-solid border-8 border-x-slate-500/50 border-y-slate-800/50 shadow-lg shadow-slate-500/40 bg-slate-50/75 max-h-96" src={src} width={600} height={400} />
-                                <div className="mt-4 flex justify-center items-center">title</div>
+                                <Image className="p-4 border-solid border-8 border-x-slate-500/50 border-y-slate-800/50 shadow-lg shadow-slate-500/40 bg-slate-50/75 max-h-96" src={item.filepath} width={600} height={400} alt="gallery image"/>
+                                <div className="mt-4 flex justify-center items-center">{item.imagename}</div>
                             </div>
                         </SwiperSlide>
                     );

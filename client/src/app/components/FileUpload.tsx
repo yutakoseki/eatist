@@ -22,7 +22,7 @@ const FileUpload = ({ props }: props) => {
             const fileExtension = selected.name.split(".").pop()?.toLowerCase();
             // 1Mb未満
             
-            if(selected.size > 1000000) {
+            if(selected.size > 5000000) {
                 alert("1MB未満のファイルを選択してください");
                 return;
             }

@@ -32,9 +32,9 @@ router.post("/post", isAuthenticated, async (req, res) => {
                 author: {
                     include: {
                         profile: true,
-                    }
+                    },
                 },
-            }
+            },
         });
 
         res.status(201).json(newPost);
@@ -54,11 +54,33 @@ router.get("/get_latest_post", async (req, res) => {
                 author: {
                     include: {
                         profile: true,
-                    }
+                    },
                 },
-            }
+            },
         });
         return res.json(latestPosts);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "サーバーエラーです・" });
+    }
+});
+
+// そのユーザーが閲覧しているユーザーの投稿内容だけを取得
+router.get("/:userId", async (req, res) => {
+    // urlからparamsを取得
+    const { userId } = req.params;
+
+    try {
+        const userPosts = await prisma.post.findMany({
+            where: {
+                authorId: parseInt(userId),
+            },
+            orderBy: { createdAt: "desc" },
+            include: {
+                author: true,
+            },
+        });
+        return res.status(200).json(userPosts);
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "サーバーエラーです・" });
