@@ -1,4 +1,5 @@
 "use client";
+import UploadFileList from "@/app/components/FileUPload/UploadFileList";
 import FileUpload from "@/app/components/FileUpload";
 import { NextPage } from "next";
 import React from "react";
@@ -13,6 +14,7 @@ const EditGallery: NextPage<PageProps> = ({ params }) => {
     return (
         <>
             <FileUpload props={params}/>
+            <UploadFileList props={params}/>
         </>
     );
 };

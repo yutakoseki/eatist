@@ -2,13 +2,13 @@
 import apiClient from "@/lib/apiClient";
 import React, { useState } from "react";
 
-interface props {
+interface Props {
     props: {
         editId: number;
     };
 }
 
-const FileUpload = ({ props }: props) => {
+const FileUpload = ({ props }: Props) => {
     const userid = props.editId;
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [extension, setExtention] = useState<string>("");
