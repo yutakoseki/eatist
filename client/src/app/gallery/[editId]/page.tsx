@@ -1,6 +1,7 @@
 "use client";
+import FileUpload from "@/app/components/FileUPload/FileUpload";
 import UploadFileList from "@/app/components/FileUPload/UploadFileList";
-import FileUpload from "@/app/components/FileUpload";
+
 import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
