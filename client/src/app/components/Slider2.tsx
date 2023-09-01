@@ -14,26 +14,11 @@ import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 import apiClient from "@/lib/apiClient";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import Image from "next/image";
+import { Gallery } from "@/types";
 
 interface Props {
     props: {
         userId: number;
-    };
-}
-
-interface Gallery {
-    id: number;
-    content: string;
-    createdAt: string;
-    authorId: number;
-    filepath: string;
-    imagename: string;
-    author: {
-        profileImageUrl: string | undefined;
-        id: number;
-        username: string;
-        email: string;
-        password: string;
     };
 }
 
@@ -97,7 +82,7 @@ export default function Slider2({ props }: Props) {
                         <SwiperSlide key={`${index}`}>
                             <div className="w-10/12 mx-auto">
                                 <Image className="p-4 border-solid border-8 border-x-slate-500/50 border-y-slate-800/50 shadow-lg shadow-slate-500/40 bg-slate-50/75 max-h-96" src={item.filepath} width={600} height={400} alt="gallery image" />
-                                <div className="mt-4 flex justify-center items-center">{item.imagename}</div>
+                                <div className="mt-4 flex justify-center items-center">{item.title}</div>
                             </div>
                         </SwiperSlide>
                     );

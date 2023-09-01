@@ -26,6 +26,7 @@ export interface PostType {
 
 export interface  Gallery {
     id: number;
+    title: string;
     content: string;
     createdAt: string;
     authorId: number;

@@ -38,6 +38,7 @@ model Profile{
 
 model Gallery{
   id Int @id @default(autoincrement())
+  title String @default("title")
   imagename String
   uploadimagename String
   filepath String

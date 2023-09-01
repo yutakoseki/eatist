@@ -1,5 +1,6 @@
 "use client";
 import apiClient from "@/lib/apiClient";
+import { Input } from "@nextui-org/react";
 import React, { useState } from "react";
 
 interface Props {
@@ -12,17 +13,19 @@ const FileUpload = ({ props }: Props) => {
     const userid = props.editId;
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [extension, setExtention] = useState<string>("");
+    const [title, setTitle] = useState("");
+
+    // タイトルの入力
 
     // ファイルの選択
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            debugger;
             const selected = event.target.files[0];
             const allowedExtensions = ["png", "jpeg", "jpg"];
             const fileExtension = selected.name.split(".").pop()?.toLowerCase();
             // 1Mb未満
-            
-            if(selected.size > 5000000) {
+
+            if (selected.size > 5000000) {
                 alert("1MB未満のファイルを選択してください");
                 return;
             }
@@ -57,13 +60,16 @@ const FileUpload = ({ props }: Props) => {
 
     // ファイルアップロード
     const handleUpload = async () => {
+        if (!title) {
+            alert("タイトルを入力してください");
+            return;
+        }
+        if (!selectedFile) {
+            alert("画像ファイルを選択してください。");
+            console.error("ファイルが選択されていません。");
+            return;
+        }
         try {
-            if (!selectedFile) {
-                alert("画像ファイルを選択してください。");
-                console.error("ファイルが選択されていません。");
-                return;
-            }
-
             // TODO storage用github情報 秘匿情報としたい
             const token = "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";
             const owner = "yutakoseki";
@@ -102,9 +108,13 @@ const FileUpload = ({ props }: Props) => {
                 console.log(`Upload failed.`, res.status);
             }
 
+            // 成功
+            setTitle("");
+
             // アップロードに成功した場合はDBへパスを登録
             try {
                 await apiClient.post("/gallery/register", {
+                    title,
                     imageName,
                     uploadImageName,
                     urlPath,
@@ -119,13 +129,13 @@ const FileUpload = ({ props }: Props) => {
     };
 
     return (
-        <div>
-            <h1>GitHubへのファイルアップロード</h1>
+        <>
+            <Input type="email" variant="underlined" label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
             <input type="file" onChange={handleFileChange} />
             <button className="bg-blue-500" onClick={handleUpload}>
-                GitHubにアップロード
+                UPLOAD
             </button>
-        </div>
+        </>
     );
 };
 

@@ -29,16 +29,16 @@ const UploadFileList = ({ props }: GalleryEditType) => {
                 <Table color={selectedColor} selectionMode="multiple" defaultSelectedKeys={["2", "3"]} aria-label="Example static collection table">
                     <TableHeader>
                         <TableColumn>TITLE</TableColumn>
+                        <TableColumn>IMAGE NAME</TableColumn>
                         <TableColumn>REGISTER DATE</TableColumn>
-                        <TableColumn>ID</TableColumn>
                     </TableHeader>
                     <TableBody>
                         {gallery.map((item: Gallery, index: number) => {
                             return (
                                 <TableRow key={`${index}`}>
+                                    <TableCell>{item.title}</TableCell>
                                     <TableCell>{item.imagename}</TableCell>
                                     <TableCell>{item.createdAt}</TableCell>
-                                    <TableCell>{item.id}</TableCell>
                                 </TableRow>
                             );
                         })}

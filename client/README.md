@@ -69,7 +69,7 @@ document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scra
 ```npx prisma migrate dev --name init```
 ※.envファイルにURL設定しないとエラーになる
 ### プリズマ更新
-```npx prisma migrate dev```
+```npx prisma migrate dev --name message```
 ### prismaクライアントのインストール
 ```npm i @prisma/client```
 ## supabaseをいちいち開きたくない

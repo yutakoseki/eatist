@@ -17,6 +17,7 @@ router.post("/register", isAuthenticated, async (req, res) => {
     try {
         const newImage = await prisma.gallery.create({
             data: {
+                title:req.body.title,
                 imagename: req.body.imageName,
                 uploadimagename: req.body.uploadImageName,
                 filepath: req.body.urlPath,
