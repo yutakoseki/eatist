@@ -6,7 +6,6 @@ export interface Profile {
     user: UserType;
 }
 
-
 export interface UserType {
     id: number;
     username: string;
@@ -24,7 +23,7 @@ export interface PostType {
     author: UserType;
 }
 
-export interface  Gallery {
+export interface Gallery {
     id: number;
     title: string;
     content: string;
@@ -41,9 +40,14 @@ export interface  Gallery {
     };
 }
 
-export interface GalleryEditType{
+export interface GalleryEditType {
     props: {
         editId: number;
     };
+}
 
+export interface Task {
+    [x: string]: any;
+    id: number;
+    text: string;
 }

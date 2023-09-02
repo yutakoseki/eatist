@@ -54,11 +54,8 @@ Ok to proceed? (y) y
 サイト：https://supabase.com/dashboard/project/blputnmvdjzlofwwbuhr/editor/28573
 ID : developsolt@gmail.com
 Pass: いつもの
-DBname: vocallery
-DBpass: vocallery-enzi
-
-.env
-DATABASE_URL="postgresql://postgres:vocallery-enzi@db.wfijvtyuetfeycepidnc.supabase.co:5432/postgres"
+DBname: eatist
+DBpass: eatist1358-Htym
 
 ## prismaのインストール
 document:https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-typescript-postgresql
@@ -111,3 +108,8 @@ URL:https://jwt.io/
 
 ## ionicons
 ```npm i ionicons```
+
+## uuid
+```npm i uuid```
+- typescriptに対応してないので下記もインストール
+```npm i --save-dev @types/uuid```
