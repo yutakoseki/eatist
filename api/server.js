@@ -6,6 +6,8 @@ const postsRoute = require("./routers/posts");
 const usersRoute = require("./routers/users");
 const imageRoute = require("./routers/image");
 const galleryRoute = require("./routers/gallery");
+const listRoute = require("./routers/list");
+const dishRoute = require("./routers/dish");
 const cors = require("cors");
 
 // PORTは適当
@@ -27,5 +29,7 @@ app.use("/api/posts", postsRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/image", imageRoute);
 app.use("/api/gallery", galleryRoute);
+app.use("/api/list", listRoute);
+app.use("/api/dish", dishRoute);
 
 app.listen(PORT, () => console.log(`sercer is running on Port ${PORT}`));

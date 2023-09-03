@@ -41,6 +41,7 @@ model Task {
   eatflag Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  dishes Dish[]
 }
 
 model Dish {
@@ -49,6 +50,7 @@ model Dish {
   url String
   comment String
   taskId Int
+  task    Task     @relation(fields: [taskId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

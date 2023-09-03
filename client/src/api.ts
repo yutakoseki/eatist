@@ -1,18 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Task } from "./types";
+import apiClient from "./lib/apiClient";
 
 const prisma = new PrismaClient();
 
-export const getAllTodos = async (): Promise<Task[]> => {
-    const res = await fetch(
-        "http://localhost:3000/tasks",
-        { cache: "no-store" } // SSR
-    );
-    const todos = res.json();
+// export const getAllTodos = async (): Promise<Task[]> => {
+//     const res = await fetch("/api/tasks", {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         cache: "no-store", // SSR
+//     });
+//     const todos = res.json();
 
-    return todos;
-};
+//     return todos;
+// };
+
+// export const getAllTodos = async (): Promise<Task[]> => {
+//     try {
+//         const response = await apiClient.post("/list/get_latest_list");
+//         const todos = response.data;
+//     } catch (err) {
+//         alert("入力内容が正しくありません");
+//     }
+
+//     return todos;
+// };
+
+
 
 export const addTodo = async (todo: string): Promise<Task> => {
     const res = await fetch("http://localhost:5055/tasks", {

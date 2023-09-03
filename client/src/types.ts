@@ -51,3 +51,20 @@ export interface Task {
     id: number;
     text: string;
 }
+
+export interface DishId {
+    params: {
+        dishId: number;
+    };
+}
+
+export interface Dish {
+    [x: string]: any;
+    id: number;
+    text: string;
+    url: string;
+    comment: string;
+    taskId: number;
+    createdAt: string;
+    updatedAt: string;
+}
